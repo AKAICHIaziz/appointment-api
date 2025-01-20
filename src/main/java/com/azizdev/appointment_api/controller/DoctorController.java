@@ -1,6 +1,7 @@
 package com.azizdev.appointment_api.controller;
 
 import com.azizdev.appointment_api.dto.DoctorDTO;
+import com.azizdev.appointment_api.mapper.DoctorMapper;
 import com.azizdev.appointment_api.model.Doctor;
 import com.azizdev.appointment_api.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +29,12 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
 
+
     @PostMapping
-    public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) {
-        Doctor doctorToSave = new Doctor(
-                doctor.getFirstname(),
-                doctor.getLastname(),
-                doctor.getGender(),
-                doctor.getAge(),
-                doctor.getSpecialization(),
-                doctor.getYearsOfExperience(),
-                doctor.getEmail(),
-                doctor.getTel(),
-                doctor.getAddress()
-        );
-        Doctor newDoctor = doctorService.createDoctor(doctorToSave);
-        return new ResponseEntity<>(newDoctor, HttpStatus.CREATED);
+    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO doctorDTO) {
+        Doctor doctor = DoctorMapper.toDoctorEntity(doctorDTO);
+        doctor = doctorService.createDoctor(doctor);
+        return new ResponseEntity<>(DoctorMapper.toDoctorDTO(doctor), HttpStatus.CREATED);
     }
 
 

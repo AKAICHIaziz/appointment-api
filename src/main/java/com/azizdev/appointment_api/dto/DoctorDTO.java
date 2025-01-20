@@ -2,8 +2,11 @@ package com.azizdev.appointment_api.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class DoctorDTO {
+    private Integer id;
     private String firstname;
     private String lastname;
     private String gender;
@@ -13,6 +16,24 @@ public class DoctorDTO {
     private String email;
     private String tel;
     private AddressDTO address;
+    private List<DoctorScheduleDTO> doctorSchedules;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<DoctorScheduleDTO> getDoctorSchedules() {
+        return doctorSchedules;
+    }
+
+    public void setDoctorSchedules(List<DoctorScheduleDTO> doctorSchedules) {
+        this.doctorSchedules = doctorSchedules;
+    }
 
     public String getFirstname() {
         return firstname;
