@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class DoctorDTO {
+
     private Integer id;
     private String firstname;
     private String lastname;
@@ -16,8 +17,6 @@ public class DoctorDTO {
     private String email;
     private String tel;
     private AddressDTO address;
-    private List<DoctorScheduleDTO> doctorSchedules;
-
 
     public Integer getId() {
         return id;
@@ -25,14 +24,6 @@ public class DoctorDTO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<DoctorScheduleDTO> getDoctorSchedules() {
-        return doctorSchedules;
-    }
-
-    public void setDoctorSchedules(List<DoctorScheduleDTO> doctorSchedules) {
-        this.doctorSchedules = doctorSchedules;
     }
 
     public String getFirstname() {
