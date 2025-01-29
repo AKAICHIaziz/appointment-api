@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,6 +30,19 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable Integer id) {
+        Optional<Doctor> optionalDoctor = doctorService.getDoctorById(id);
+        if(optionalDoctor.isPresent()) {
+            Doctor doctor = optionalDoctor.get();
+            DoctorDTO doctorDTO = DoctorMapper.toDoctorDTO(doctor);
+            return new ResponseEntity<>(doctorDTO, HttpStatus.FOUND);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @PostMapping
     public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO doctorDTO) {
