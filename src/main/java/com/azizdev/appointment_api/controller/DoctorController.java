@@ -33,15 +33,14 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable Integer id) {
-        Optional<Doctor> optionalDoctor = doctorService.getDoctorById(id);
-        if(optionalDoctor.isPresent()) {
-            Doctor doctor = optionalDoctor.get();
-            DoctorDTO doctorDTO = DoctorMapper.toDoctorDTO(doctor);
-            return new ResponseEntity<>(doctorDTO, HttpStatus.FOUND);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        DoctorDTO doctorDTO = doctorService.getDoctorById(id);
+        return ResponseEntity.ok(doctorDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DoctorDTO> updateDoctor(@PathVariable Integer id, @RequestBody DoctorDTO doctorDTO) {
+        DoctorDTO updatedDoctor = doctorService.updateDoctor(id, doctorDTO);
+        return ResponseEntity.ok(updatedDoctor);
     }
 
     @PostMapping
@@ -51,6 +50,11 @@ public class DoctorController {
         return new ResponseEntity<>(DoctorMapper.toDoctorDTO(doctor), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDoctor(@PathVariable Integer id) {
+        doctorService.deleteDoctor(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
